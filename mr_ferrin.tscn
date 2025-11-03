@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://btvg6eg2io046"]
+
+[ext_resource type="Script" uid="uid://cuvf6mvn8ywn" path="res://mr_ferrin.gd" id="1_xxamm"]
+[ext_resource type="Texture2D" uid="uid://yld0ljoc7bgm" path="res://Mr Ferrin.png" id="2_akdh1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxamm"]
+albedo_color = Color(0.38928655, 0.38928664, 0.38928658, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_akdh1"]
+material = SubResource("StandardMaterial3D_xxamm")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_48ecl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hheh5"]
+radius = 20.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xxamm"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48ecl"]
+albedo_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hheh5"]
+size = Vector3(0.1, 1, 0.8)
+
+[node name="MrFerrin" type="CharacterBody3D"]
+script = ExtResource("1_xxamm")
+
+[node name="MonsterMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_akdh1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_48ecl")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="DetectionZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone"]
+shape = SubResource("SphereShape3D_hheh5")
+
+[node name="DamageZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19895434, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xxamm")
+
+[node name="DamageCooldownTimer" type="Timer" parent="."]
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="HeadMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5, 1.722, 0)
+material_override = SubResource("StandardMaterial3D_48ecl")
+mesh = SubResource("BoxMesh_hheh5")
+
+[node name="Sticker" type="Sprite3D" parent="HeadMesh"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.051430106, 0, 0)
+texture = ExtResource("2_akdh1")
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
+[connection signal="body_entered" from="DamageZone" to="." method="_on_damage_zone_body_entered"]
+[connection signal="body_exited" from="DamageZone" to="." method="_on_damage_zone_body_exited"]
+[connection signal="timeout" from="DamageCooldownTimer" to="." method="_on_damage_cooldown_timer_timeout"]

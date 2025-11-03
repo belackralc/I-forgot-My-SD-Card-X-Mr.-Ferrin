@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=3 uid="uid://dntate8fsg8dr"]
+
+[ext_resource type="Script" uid="uid://b2rdgfoliwhng" path="res://hud.gd" id="1_37p78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37p78"]
+bg_color = Color(0.54509807, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64ctp"]
+bg_color = Color(0.34509805, 1, 0.47058824, 1)
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_37p78")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Health: 100"
+
+[node name="SDCardLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "SD Cards: 0 / 0"
+horizontal_alignment = 2
+
+[node name="Crosshair" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "+"
+
+[node name="MrFerrinHealthBar" type="ProgressBar" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -279.0
+offset_bottom = -249.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_37p78")
+theme_override_styles/fill = SubResource("StyleBoxFlat_64ctp")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MrFerrinHealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Mr. Ferrin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseMenu" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="HurtEffect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)

@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7qwmgbmeik8h"]
+
+[ext_resource type="PackedScene" uid="uid://bn0ecba4i2h3p" path="res://player.tscn" id="1_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://r1r1g5f8xiap" path="res://sd_card.tscn" id="2_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://btvg6eg2io046" path="res://mr_ferrin.tscn" id="3_036b0"]
+[ext_resource type="PackedScene" uid="uid://dntate8fsg8dr" path="res://hud.tscn" id="4_aqk2v"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_fj7yv"]
+
+[sub_resource type="Sky" id="Sky_tlwt5"]
+sky_material = SubResource("PhysicalSkyMaterial_fj7yv")
+
+[sub_resource type="Environment" id="Environment_aqk2v"]
+background_mode = 2
+background_energy_multiplier = 3.18
+sky = SubResource("Sky_tlwt5")
+sdfgi_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_036b0"]
+vertices = PackedVector3Array(-24.5, 1, -24.5, -24.5, 1, 24.5, 24.5, 1, 24.5, 24.5, 1, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gv5m4"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_f3sb7"]
+data = PackedVector3Array(-25, 0.5, 25, 25, 0.5, 25, -25, -0.5, 25, 25, 0.5, 25, 25, -0.5, 25, -25, -0.5, 25, 25, 0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, 0.5, -25, -25, -0.5, -25, 25, -0.5, -25, 25, 0.5, 25, 25, 0.5, -25, 25, -0.5, 25, 25, 0.5, -25, 25, -0.5, -25, 25, -0.5, 25, -25, 0.5, -25, -25, 0.5, 25, -25, -0.5, -25, -25, 0.5, 25, -25, -0.5, 25, -25, -0.5, -25, 25, 0.5, 25, -25, 0.5, 25, 25, 0.5, -25, -25, 0.5, 25, -25, 0.5, -25, 25, 0.5, -25, -25, -0.5, 25, 25, -0.5, 25, -25, -0.5, -25, 25, -0.5, 25, 25, -0.5, -25, -25, -0.5, -25)
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1291629, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8660254, -0.35355338, 0.35355338, 0, 0.70710677, 0.70710677, -0.5, -0.6123724, 0.6123724, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aqk2v")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_036b0")
+
+[node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D"]
+mesh = SubResource("BoxMesh_gv5m4")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_f3sb7")
+
+[node name="SDCard" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0286717, 3.3201966)
+
+[node name="SDCard2" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1293545, 0.992463, 3.3201966)
+
+[node name="SDCard3" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0600591, 1.0286717, 5.68349)
+
+[node name="SDCard4" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 5.68349)
+
+[node name="SDCard5" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 7.185879)
+
+[node name="SDCard7" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 9.589642)
+
+[node name="SDCard8" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 9.589642)
+
+[node name="SDCard9" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 7.8444834)
+
+[node name="SDCard10" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148455, 1.0286717, 6.589405)
+
+[node name="SDCard6" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8019114, 1.0286717, 8.47266)
+
+[node name="MrFerrin" parent="." instance=ExtResource("3_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.291811, 0.72837114, -12.001436)
+
+[node name="HUD" parent="." instance=ExtResource("4_aqk2v")]

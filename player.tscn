@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://bn0ecba4i2h3p"]
+
+[ext_resource type="Script" uid="uid://8tdhig4l0g2j" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://b4yvvou6qwyrt" path="res://sd_card_projectile.tscn" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://d1dbs51fx7sfx" path="res://Sd Card.jpg" id="3_i3pqv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hqtel"]
+size = Vector3(0.2, 0.3, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sweqy"]
+albedo_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2hs0m"]
+size = Vector2(0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jxqw"]
+albedo_texture = ExtResource("3_i3pqv")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4flbx")
+projectile_scene = ExtResource("2_onrkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_onrkg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Visuals" type="Node3D" parent="Camera3D"]
+transform = Transform3D(0.9396926, 0, -0.34202012, 0, 1, 0, 0.34202012, 0, 0.9396926, 0.4, -0.2, -0.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/Visuals"]
+mesh = SubResource("BoxMesh_hqtel")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_sweqy")
+
+[node name="Sticker" type="MeshInstance3D" parent="Camera3D/Visuals"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0.026)
+mesh = SubResource("PlaneMesh_2hs0m")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_1jxqw")

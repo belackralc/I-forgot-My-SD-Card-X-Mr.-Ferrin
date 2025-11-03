@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://r1r1g5f8xiap"]
+
+[ext_resource type="Script" uid="uid://b0rhqem3716rb" path="res://sd_card.gd" id="1_t6qpb"]
+[ext_resource type="Texture2D" uid="uid://d1dbs51fx7sfx" path="res://Sd Card.jpg" id="2_6nmod"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nw7l3"]
+size = Vector3(0.2, 0.3, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6nmod"]
+size = Vector3(0.2, 0.3, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nw7l3"]
+albedo_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6nmod"]
+size = Vector2(0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seku4"]
+albedo_texture = ExtResource("2_6nmod")
+
+[node name="SDCard" type="Area3D"]
+script = ExtResource("1_t6qpb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_nw7l3")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+text = "SD Card"
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_6nmod")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_nw7l3")
+
+[node name="Sticker" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0.026)
+mesh = SubResource("PlaneMesh_6nmod")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_seku4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
